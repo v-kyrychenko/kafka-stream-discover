@@ -1,6 +1,7 @@
 # Kafka stream discover
 
 ## 1. WordCount streaming app
+Simple hello word app from official documentation
 
 ### 1.1. In topic
 ```
@@ -34,6 +35,10 @@ bin/kafka-console-producer.sh --broker-list localhost:9092 --topic streams-plain
 ```
 
 ## 2. Favorite color streaming app
+* Take a comma delimited topic of userId,color
+* Get the running count of the favorite colours overall and output to a topic
+* User's color can change
+
 ### 2.1. In topic
 ```
 bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
