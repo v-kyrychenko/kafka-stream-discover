@@ -1,4 +1,4 @@
-package org.vkyr.kafka.stream.discover;
+package org.vkyr.kafka.stream.discover.app.words;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 import static org.vkyr.kafka.stream.discover.config.KafkaUtils.launchApp;
 
-public class MainWordCount {
+public class MainWordStreamApp {
 
     private static final String STREAM_APP_ID = "vkyr-stream-discover";
 

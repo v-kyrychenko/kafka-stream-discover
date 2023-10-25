@@ -1,9 +1,8 @@
-package org.vkyr.kafka.stream.discover;
+package org.vkyr.kafka.stream.discover.app.color;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Named;
@@ -11,7 +10,7 @@ import org.apache.kafka.streams.kstream.Produced;
 
 import static org.vkyr.kafka.stream.discover.config.KafkaUtils.launchApp;
 
-public class MainFavoriteColor {
+public class FavoriteColorStreamApp {
 
     private static final String STREAM_APP_ID = "vkyr-stream-colors";
 
