@@ -105,3 +105,7 @@ Run org.vkyr.kafka.stream.discover.app.bank.balance.BankTransactionsProducer.mai
     --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
     --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
 ```
+
+# Useful link
+* https://www.confluent.io/blog/test-kafka-streams-with-topologytestdriver/
+* https://docs.confluent.io/platform/current/streams/developer-guide/dsl-api.html#

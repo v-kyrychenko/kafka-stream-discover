@@ -3,6 +3,7 @@ package org.vkyr.kafka.stream.discover.app.color;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Named;
@@ -18,7 +19,7 @@ public class FavoriteColorStreamApp {
     private static final String STREAM_APP_MIDDLE = "streams-colors-middle";
     private static final String STREAM_APP_OUT = "streams-colors-output";
 
-    public static void main(String[] args) {
+    public Topology topology() {
         StreamsBuilder builder = new StreamsBuilder();
         KStream<String, String> inStream = builder.stream(STREAM_APP_IN);
 
@@ -36,6 +37,11 @@ public class FavoriteColorStreamApp {
                 .toStream()
                 .to(STREAM_APP_OUT, Produced.with(Serdes.String(), Serdes.Long()));
 
-        launchApp(STREAM_APP_ID, builder.build());
+        return builder.build();
+    }
+
+    public static void main(String[] args) {
+        FavoriteColorStreamApp app = new FavoriteColorStreamApp();
+        launchApp(STREAM_APP_ID, app.topology());
     }
 }

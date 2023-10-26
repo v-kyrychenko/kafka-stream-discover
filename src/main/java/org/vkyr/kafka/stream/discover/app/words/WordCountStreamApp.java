@@ -2,6 +2,7 @@ package org.vkyr.kafka.stream.discover.app.words;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Named;
@@ -11,14 +12,14 @@ import java.util.Arrays;
 
 import static org.vkyr.kafka.stream.discover.config.KafkaUtils.launchApp;
 
-public class MainWordStreamApp {
+public class WordCountStreamApp {
 
-    private static final String STREAM_APP_ID = "vkyr-stream-discover";
+    static final String STREAM_APP_ID = "vkyr-stream-discover";
 
-    private static final String STREAM_APP_IN = "streams-plaintext-input";
-    private static final String STREAM_APP_OUT = "streams-plaintext-output";
+    static final String STREAM_APP_IN = "streams-plaintext-input";
+    static final String STREAM_APP_OUT = "streams-plaintext-output";
 
-    public static void main(String[] args) {
+    public Topology topology() {
         StreamsBuilder builder = new StreamsBuilder();
         KStream<String, String> stream = builder.stream(STREAM_APP_IN);
 
@@ -31,6 +32,11 @@ public class MainWordStreamApp {
 
         wordCounts.toStream().to(STREAM_APP_OUT, Produced.with(Serdes.String(), Serdes.Long()));
 
-        launchApp(STREAM_APP_ID, builder.build());
+        return builder.build();
+    }
+
+    public static void main(String[] args) {
+        WordCountStreamApp app = new WordCountStreamApp();
+        launchApp(STREAM_APP_ID, app.topology());
     }
 }

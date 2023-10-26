@@ -1,6 +1,7 @@
 package org.vkyr.kafka.stream.discover.app.bank.balance;
 
 import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.KStream;
 import org.vkyr.kafka.stream.discover.app.bank.balance.model.UserTrx;
 
@@ -16,7 +17,7 @@ import static org.vkyr.kafka.stream.discover.config.KafkaUtils.toJsonString;
 
 public class BankBalanceStreamApp {
 
-    public static void main(String[] args) {
+    public Topology topology() {
         StreamsBuilder builder = new StreamsBuilder();
         KStream<String, String> inStream = builder.stream(STREAM_APP_IN);
 
@@ -26,7 +27,7 @@ public class BankBalanceStreamApp {
                 .toStream()
                 .to(STREAM_APP_OUT);
 
-        launchApp(STREAM_APP_ID, builder.build());
+        return builder.build();
     }
 
     private static String accumulateBalance(String trx1Msg, String trx2Msg) {
@@ -38,5 +39,10 @@ public class BankBalanceStreamApp {
                 trx1.getTime().toEpochMilli(),
                 trx2.getTime().toEpochMilli()));
         return toJsonString(new UserTrx(trx1.getUserId(), trx1.getName(), balance, lastUpdate));
+    }
+
+    public static void main(String[] args) {
+        BankBalanceStreamApp app = new BankBalanceStreamApp();
+        launchApp(STREAM_APP_ID, app.topology());
     }
 }
